@@ -4,7 +4,8 @@
     "keywords": ["laraerp", "template"],
     "license": "MIT",
     "require": {
-        "laravel/framework": "5.0.*"
+        "laravel/framework": "5.0.*",
+	"laraerp/ordination": "dev-master"
     },
     "config": {
         "preferred-install": "dist"
