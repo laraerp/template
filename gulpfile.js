@@ -4,6 +4,7 @@ var minifyCss = require("gulp-minify-css");
 var uglify = require("gulp-uglify");
 var concat = require("gulp-concat");
 
+
 gulp.task('less', function(){
     return gulp.src('./src/resources/assets/less/styles.less')
         .pipe(less())
@@ -21,5 +22,10 @@ gulp.task('minify-js', function () {
       .pipe(gulp.dest('./src/public'));
 });
 
+gulp.task('fonts', function() {
+    return gulp.src('./node_modules/bootstrap/dist/fonts/*')
+    .pipe(gulp.dest('./src/public/fonts'));
+});
 
-gulp.task('default', ['less', 'minify-js']);
+
+gulp.task('default', ['less', 'minify-js', 'fonts']);
