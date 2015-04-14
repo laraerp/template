@@ -1,0 +1,12 @@
+{
+    "name": "laraerp/template",
+    "description": "Laraerp Default Template",
+    "keywords": ["laraerp", "template"],
+    "license": "MIT",
+    "require": {
+        "laravel/framework": "5.0.*"
+    },
+    "config": {
+        "preferred-install": "dist"
+    }
+}
