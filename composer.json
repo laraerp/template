@@ -5,7 +5,12 @@
     "license": "MIT",
     "require": {
         "laravel/framework": "5.0.*",
-	"laraerp/ordination": "dev-master"
+	    "laraerp/ordination": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Laraerp\\": "src/Laraerp"
+        }
     },
     "config": {
         "preferred-install": "dist"
