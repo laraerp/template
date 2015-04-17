@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Laraerp</title>
 
-        <link href="/vendor/laraerp/template/styles.css" rel="stylesheet">
+        <link href="/vendor/laraerp/template/css/styles.css" rel="stylesheet">
 
         <!-- Fonts -->
         <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
@@ -66,6 +66,6 @@
         @yield('content')
 
         <!-- Scripts -->
-        <script src="/vendor/laraerp/template/scripts.js"></script>
+        <script src="/vendor/laraerp/template/js/scripts.js"></script>
     </body>
 </html>
