@@ -9,7 +9,7 @@ gulp.task('less', function(){
     return gulp.src('./src/resources/assets/less/styles.less')
         .pipe(less())
         .pipe(minifyCss())
-        .pipe(gulp.dest('./src/public'));
+        .pipe(gulp.dest('./src/public/css'));
 });
 
 gulp.task('minify-js', function () {
@@ -19,7 +19,7 @@ gulp.task('minify-js', function () {
     		'./src/resources/assets/js/*.js'
     ]).pipe(uglify())
       .pipe(concat('scripts.js'))
-      .pipe(gulp.dest('./src/public'));
+      .pipe(gulp.dest('./src/public/js'));
 });
 
 gulp.task('fonts', function() {
