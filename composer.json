@@ -1,17 +1,17 @@
 {
-    "name": "laraerp/template",
-    "description": "Laraerp Default Template",
-    "keywords": ["laraerp", "template"],
-    "license": "MIT",
-    "require": {
-	"laraerp/ordination": "1.0.*"
-    },
-    "autoload": {
-        "psr-4": {
-            "Laraerp\\": "src/Laraerp"
-        }
-    },
-    "config": {
-        "preferred-install": "dist"
+  "name": "laraerp/template",
+  "description": "Laraerp Default Template",
+  "keywords": ["laraerp", "template"],
+  "license": "MIT",
+  "require": {
+    "laraerp/ordination": "1.0.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Laraerp\\": "src/Laraerp"
     }
+  },
+  "config": {
+    "preferred-install": "dist"
+  }
 }

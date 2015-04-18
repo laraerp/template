@@ -33,7 +33,11 @@ class TemplateServiceProvider extends ServiceProvider {
      * @return void
      */
     public function register() {
-        // Bind any implementations.
+
+        $this->app->bind(
+            'Laraerp\Ordination\OrdinationServiceProvider'
+        );
+
     }
 
     /**
