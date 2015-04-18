@@ -34,9 +34,12 @@ class TemplateServiceProvider extends ServiceProvider {
      */
     public function register() {
 
-        $this->app->bind(
-            'Laraerp\Ordination\OrdinationServiceProvider'
-        );
+        $this->app->register('Laraerp\Ordination\OrdinationServiceProvider');
+
+        $this->app->booting(function()        {
+            $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+            $loader->alias('Order', 'Laraerp\Ordination\Facade');
+        });
 
     }
 

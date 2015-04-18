@@ -37,7 +37,7 @@
                             <table class="table table-condensed table-striped">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th><a href="{{Order::url('id')}}">#</a></th>
                                     <th><a href="{{Order::url('pessoa.documento')}}">Documento</a></th>
                                     <th><a href="{{Order::url('pessoa.nome')}}">Nome</a></th>
                                     <th><a href="{{Order::url('pessoa.razao_apelido')}}">Razão Social</a></th>
