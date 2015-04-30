@@ -3,26 +3,25 @@
 @section('content')
     <div class="container-fluid">
 
-        <form method="GET">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="input-group">
-                        <input type="text" name="like" class="form-control" placeholder="Pesquisar" value="{{Input::get('like')}}" />
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                        </span>
+        <div class="row">
+            <div class="col-md-12">
+                <form method="GET" class="form-inline">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" name="like" class="form-control" placeholder="Pesquisar por..." value="{{Input::get('like')}}" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            </span>
+                        </div>
                     </div>
-                </div>
-
-                <div class="col-md-6">
                     <div class="pull-right">
-                        <a href="#" class="btn btn-success">
+                        <a href="/" class="btn btn-success">
                             <i class="glyphicon glyphicon-plus"></i> Criar novo
                         </a>
                     </div>
-                </div>
+                </form>
             </div>
-        </form>
+        </div>
 
         <hr />
 
