@@ -39,7 +39,10 @@ class TemplateServiceProvider extends ServiceProvider {
         $this->app->booting(function()        {
             $loader = \Illuminate\Foundation\AliasLoader::getInstance();
             $loader->alias('Order', 'Laraerp\Ordination\Facade');
+            $loader->alias('Utils', 'JansenFelipe\Utils\Utils');
+            $loader->alias('Mask', 'JansenFelipe\Utils\Mask');
         });
+
 
     }
 

@@ -4,6 +4,7 @@
   "keywords": ["laraerp", "template"],
   "license": "MIT",
   "require": {
+    "jansenfelipe/utils": "1.0.*",
     "laraerp/ordination": "1.0.*"
   },
   "autoload": {

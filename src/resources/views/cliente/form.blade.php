@@ -3,8 +3,6 @@
 @section('content')
 <form class="form-horizontal" role="form" method="post">
 
-
-
     <div class="container-fluid">
 
         <div class="row">
@@ -12,7 +10,7 @@
                 <div class="pull-right">
                     <input type="submit" class="btn btn-success" value="Cadastrar" />
                     <input type="reset" class="btn btn-danger" value="Limpar" />
-                    <a href="/cliente" class="btn btn-primary">Voltar</a>
+                    <a href="{{ route('cliente.index') }}" class="btn btn-primary">Voltar</a>
                 </div>
             </div>
         </div>

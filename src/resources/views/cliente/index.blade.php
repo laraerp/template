@@ -15,7 +15,7 @@
                         </div>
                     </div>
                     <div class="pull-right">
-                        <a href="/" class="btn btn-success">
+                        <a href="{{ route('cliente.form') }}" class="btn btn-success">
                             <i class="glyphicon glyphicon-plus"></i> Criar novo
                         </a>
                     </div>
@@ -47,9 +47,9 @@
                                 @foreach($clientes as $cliente)
                                     <tr>
                                         <th scope="row">{{ $cliente->id }}</th>
-                                        <td>{{ $cliente->pessoa->documento }}</td>
-                                        <td>{{ $cliente->pessoa->nome }}</td>
-                                        <td>{{ $cliente->pessoa->razao_apelido }}</td>
+                                        <td>{{ Utils::highlighting(Utils::mask($cliente->pessoa->documento, Mask::DOCUMENTO), Input::get('like')) }}</td>
+                                        <td>{{ Utils::highlighting($cliente->pessoa->nome, Input::get('like')) }}</td>
+                                        <td>{{ Utils::highlighting($cliente->pessoa->razao_apelido, Input::get('like')) }}</td>
                                         <td>
                                             <a href="/cliente/view/{{ $cliente->id }}" class="btn btn-info btn-xs">
                                                 <i class="glyphicon glyphicon-eye-open"></i>
@@ -63,7 +63,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        {{ $clientes->render() }}
+                        <?php echo $clientes->appends(Input::query())->render() ?>
                     </div>
                 </div>
             </div>
