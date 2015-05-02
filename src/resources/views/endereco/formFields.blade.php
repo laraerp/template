@@ -52,10 +52,42 @@
 
 <script>
     $(function(){
+
+        $('#btnConsultarCorreios').getCep({
+            cep: function(){
+                return $('#cep').cleanVal();
+            },
+
+            onSuccess: function(endereco){
+
+                $('#logradouro').val(endereco.logradouro);
+                $('#numero').val(endereco.numero);
+                $('#complemento').val(endereco.complemento);
+                $('#bairro').val(decodeEntities(endereco.bairro));
+
+                $('#cidade_id').attr('default', endereco.cidade.toUpperCase());
+
+                $("#uf option").each(function() {
+                    if ($(this).val() === endereco.uf) {
+                        $(this).attr("selected", "true");
+                        $(this).trigger("change");
+                    }
+                });
+            },
+
+            onError: function(message){
+                console.log(message);
+            }
+        });
+
         $('#uf').ufs({
             onChange: function(uf){
                 $('#cidade_id').cidades({uf: uf});
             }
         });
+
+        function decodeEntities(string){
+            return $('<textarea />').html(string).text();
+        }
     });
 </script>

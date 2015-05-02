@@ -127,6 +127,7 @@
 
                         //Endereco
                         $("#cep").val(json.params.cep);
+                        $('#btnConsultarCorreios').trigger('click');
 
                         //Cliente
                         $("#nascimento_fundacao").val(json.params.situacao_cadastral_data);

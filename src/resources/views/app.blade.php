@@ -21,6 +21,7 @@
     <!-- Scripts -->
     <script src="/vendor/laraerp/template/js/scripts.js"></script>
     <script src="/vendor/laraerp-cidades/cidades.js"></script>
+    <script src="/vendor/laraerp/correios/correios.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-default">
