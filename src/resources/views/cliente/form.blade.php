@@ -1,7 +1,8 @@
 @extends('app')
 
 @section('content')
-<form class="form-horizontal" role="form" method="post">
+<form class="form-horizontal" role="form" method="post" action="{{route('cliente.cadastrar')}}">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
     <div class="container-fluid">
 
@@ -26,7 +27,7 @@
                     </div>
                     <div class="panel-body">
 
-                        @include('pessoa.formFields')
+                        @include('pessoa.formFields', ['params' => Input::old()])
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Insc. estadual:</label>
