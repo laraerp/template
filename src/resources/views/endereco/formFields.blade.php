@@ -4,7 +4,7 @@
         <div class="input-group">
             <input type="text" class="form-control cep" id="cep" name="cep" value="{{ $params['cep'] or '' }}" placeholder="CEP" />
             <span class="input-group-btn">
-                <button class="btn btn-primary" id="btnConsultarCorreios" type="button">Consultar Correios</button>
+                <button class="btn btn-primary" id="btnConsultarCorreios" type="button">Consultar</button>
             </span>
         </div>
     </div>
@@ -58,14 +58,22 @@
                 return $('#cep').cleanVal();
             },
 
+            onBefore: function(){
+                $('#btnConsultarCorreios').html('Consultando..');
+            },
+
+            onAfter: function(){
+                $('#btnConsultarCorreios').html('Consultar');
+            },
+
             onSuccess: function(endereco){
 
-                $('#logradouro').val(endereco.logradouro);
+                $('#logradouro').val(decodeEntities(endereco.logradouro));
                 $('#numero').val(endereco.numero);
                 $('#complemento').val(endereco.complemento);
                 $('#bairro').val(decodeEntities(endereco.bairro));
 
-                $('#cidade_id').attr('default', endereco.cidade.toUpperCase());
+                $('#cidade_id').attr('default', decodeEntities(endereco.cidade).toUpperCase());
 
                 $("#uf option").each(function() {
                     if ($(this).val() === endereco.uf) {

@@ -47,14 +47,14 @@
                                 @foreach($clientes as $cliente)
                                     <tr>
                                         <th scope="row">{{ $cliente->id }}</th>
-                                        <td>{{ Utils::highlighting(Utils::mask($cliente->pessoa->documento, Mask::DOCUMENTO), Input::get('like')) }}</td>
+                                        <td>{{ Utils::highlighting($cliente->pessoa->getDocumento(), Input::get('like')) }}</td>
                                         <td>{{ Utils::highlighting($cliente->pessoa->nome, Input::get('like')) }}</td>
                                         <td>{{ Utils::highlighting($cliente->pessoa->razao_apelido, Input::get('like')) }}</td>
                                         <td>
-                                            <a href="/cliente/view/{{ $cliente->id }}" class="btn btn-info btn-xs">
+                                            <a href="{{ route('cliente.ver', $cliente->id) }}" class="btn btn-info btn-xs">
                                                 <i class="glyphicon glyphicon-eye-open"></i>
                                             </a>
-                                            <a href="/cliente/delete/{{ $cliente->id }}" class="btn btn-danger btn-xs">
+                                            <a href="{{ route('cliente.deletar', $cliente->id) }}" class="btn btn-danger btn-xs">
                                                 <i class="glyphicon glyphicon-remove"></i>
                                             </a>
                                         </td>

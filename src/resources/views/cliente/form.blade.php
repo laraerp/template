@@ -61,7 +61,7 @@
                         Cadastrar endereço
                     </div>
                     <div class="panel-body">
-                        @include('endereco.formFields')
+                        @include('endereco.formFields', ['params' => Input::old()])
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@
                         Cadastrar contato
                     </div>
                     <div class="panel-body">
-                        @include('contato.formFields')
+                        @include('contato.formFields', ['params' => Input::old()])
                     </div>
                 </div>
             </div>
