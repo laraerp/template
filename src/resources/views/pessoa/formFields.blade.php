@@ -77,12 +77,20 @@
 
         function getParams(params, response){
             $('#consultaReceita div.modal-body').html('<div class="progress">' +
-            '<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">' +
+            '<div id="progressReceita" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">' +
             'Aguarde.. Conectando ao site da Receita..' +
             '</div>' +
             '</div>');
 
-            $.post('<?php echo route('pessoa.receitaParams'); ?>', params, response, 'json');
+            $("#consultaReceita").modal('show');
+
+            $.post('<?php echo route('pessoa.receitaParams'); ?>', params, response, 'json').fail(function() {
+                $("#progressReceita")
+                        .addClass("progress-bar-danger")
+                        .removeClass("active")
+                        .removeClass("progress-bar-striped")
+                        .html("Ocorreu um erro de conexao");
+            });
         }
 
         function buildForm(captcha){
@@ -90,7 +98,6 @@
         }
 
         function responseParams(response){
-            $("#consultaReceita").modal('show');
 
             if(response.code == 0){
                 var html = buildForm(response.params.captchaBase64);
