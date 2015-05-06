@@ -2,8 +2,8 @@
     <label class="col-sm-2 control-label">Tipo:</label>
     <div class="col-sm-10">
         <select name="tipo" class="form-control none tipoPessoa" inputDocumento="documento" labelRazaoApelido="labelRazaoApelido" labelNascimentoFundacao="labelNascimentoFundacao">
-            <option value="CNPJ" <?php (isset($params['documento']) && strlen(Utils::unmask($params['documento']) == 14)) ? 'selected' : '' ?>>Pessoa Jurídica</option>
-            <option value="CPF"  <?php (isset($params['documento']) && strlen(Utils::unmask($params['documento']) == 11)) ? 'selected' : '' ?>>Pessoa Fisica</option>
+            <option value="CNPJ" <?php echo (isset($params['documento']) && strlen(Utils::unmask($params['documento'])) == 14) ? 'selected' : '' ?>>Pessoa Jurídica</option>
+            <option value="CPF"  <?php echo (isset($params['documento']) && strlen(Utils::unmask($params['documento'])) == 11) ? 'selected' : '' ?>>Pessoa Fisica</option>
         </select>
     </div>
 </div>
@@ -12,7 +12,7 @@
     <label class="col-sm-2 control-label">Documento:</label>
     <div class="col-sm-10">
         <div class="input-group">
-            <input type="text" class="form-control <?php echo (isset($params['documento']) && strlen(Utils::unmask($params['documento']) == 11)) ? 'cpf' : 'cnpj' ?>" id="documento" name="documento" value="{{ $params['documento'] or '' }}" placeholder="CPF ou CNPJ" />
+            <input type="text" class="form-control <?php echo (isset($params['documento']) && strlen(Utils::unmask($params['documento'])) == 11) ? 'cpf' : 'cnpj' ?>" id="documento" name="documento" value="{{ $params['documento'] or '' }}" placeholder="CPF ou CNPJ" />
             <span class="input-group-btn">
                 <button class="btn btn-primary" id="btnConsultarReceita" type="button">Consultar</button>
             </span>
@@ -28,16 +28,16 @@
 </div>
 
 <div class="form-group">
-    <label class="col-sm-2 control-label" id="labelRazaoApelido"><?php echo (isset($params['documento']) && strlen(Utils::unmask($params['documento']) == 11)) ? 'Apelido:' : 'Razão Social:' ?></label>
+    <label class="col-sm-2 control-label" id="labelRazaoApelido"><?php echo (isset($params['documento']) && strlen(Utils::unmask($params['documento'])) == 11) ? 'Apelido:' : 'Razão Social:' ?></label>
     <div class="col-sm-10">
         <input class="form-control" id="razao_apelido" name="razao_apelido" value="{{{ $params['razao_apelido'] or '' }}}" />
     </div>
 </div>
 
 <div class="form-group">
-    <label class="col-sm-2 control-label" id="labelNascimentoFundacao"><?php echo (isset($params['documento']) && strlen(Utils::unmask($params['documento']) == 11)) ? 'Nascimento:' : 'Fundação:' ?></label>
+    <label class="col-sm-2 control-label" id="labelNascimentoFundacao"><?php echo (isset($params['documento']) && strlen(Utils::unmask($params['documento'])) == 11) ? 'Nascimento:' : 'Fundação:' ?></label>
     <div class="col-sm-10">
-        <input class="form-control datepicker" name="nascimento_fundacao" id="nascimento_fundacao" value="{{ $params['nascimento_fundacao'] or '' }}" placeholder="dd/mm/aaaa">
+        <input class="form-control datepicker" name="nascimento_fundacao" id="nascimento_fundacao" value="<?php echo isset($params['nascimento_fundacao']) ? $params['nascimento_fundacao']->format('d/m/Y') : '' ?>" placeholder="dd/mm/aaaa">
     </div>
 </div>
 
@@ -154,6 +154,30 @@
 
             }, 'json');
         }
+
+        $('.tipoPessoa').change(function () {
+            var inputDocumento = $('#' + $(this).attr('inputDocumento'));
+            var labelRazaoApelido = $('#' + $(this).attr('labelRazaoApelido'));
+            var labelNascimentoFundacao = $('#' + $(this).attr('labelNascimentoFundacao'));
+
+            inputDocumento.removeClass('cpf');
+            inputDocumento.removeClass('cnpj');
+
+            if ($(this).val() === 'CPF') {
+                labelRazaoApelido.html('Apelido:');
+                labelNascimentoFundacao.html('Nascimento:');
+                inputDocumento.addClass('cpf');
+                $('.cpf').mask('000.000.000-00');
+            }
+
+            if ($(this).val() === 'CNPJ') {
+                labelRazaoApelido.html('Razão social:');
+                labelNascimentoFundacao.html('Fundação:');
+                inputDocumento.addClass('cnpj');
+                $('.cnpj').mask('00.000.000/0000-00');
+            }
+
+        });
 
     });
 </script>
