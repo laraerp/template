@@ -32,11 +32,35 @@
                         Lista de clientes
                     </div>
                     <div class="panel-body">
+
+                        <div id="acoesMultiplas" class="panel-collapse collapse" role="tabpanel">
+                            <button type="button" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> Excluir selecionados</button>
+
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-warning btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="glyphicon glyphicon-tag"></i> Aplicar tags <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-tags" role="menu">
+                                    <li style="padding: 3px;">
+                                        <input type="text" class="form-control input-sm" placeholder="Digite para criar uma" />
+                                    </li>
+                                    <li style="padding: 3px;"><input type="checkbox" /> Tag 01</li>
+                                    <li style="padding: 3px;"><input type="checkbox" /> Tag 02</li>
+                                    <li style="padding: 3px;"><input type="checkbox" /> Tag 03</li>
+                                    <li class="divider"></li>
+                                    <li class="text-center">
+                                        <button type="button" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-plus-sign"></i> Aplicar</button>
+                                        <button type="button" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus-sign"></i> Remover</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
                         <div class="table-responsive">
                             <table class="table table-condensed table-striped">
                                 <thead>
                                 <tr>
-                                    <th><a href="{{Order::url('id')}}">#</a></th>
+                                    <th><input type="checkbox" id="selectAll" /></th>
                                     <th><a href="{{Order::url('pessoa.documento')}}">Documento</a></th>
                                     <th><a href="{{Order::url('pessoa.nome')}}">Nome</a></th>
                                     <th><a href="{{Order::url('pessoa.razao_apelido')}}">Razão Social</a></th>
@@ -46,7 +70,7 @@
                                 <tbody>
                                 @foreach($clientes as $cliente)
                                     <tr>
-                                        <th scope="row">{{ $cliente->id }}</th>
+                                        <th scope="row"><input type="checkbox" name="clientes[]" value="{{ $cliente->id }}" /></th>
                                         <td>{{ Utils::highlighting($cliente->pessoa->getDocumento(), Input::get('like')) }}</td>
                                         <td>{{ Utils::highlighting($cliente->pessoa->nome, Input::get('like')) }}</td>
                                         <td>{{ Utils::highlighting($cliente->pessoa->razao_apelido, Input::get('like')) }}</td>
@@ -69,4 +93,36 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        $(function(){
+            $('.dropdown-menu input, .dropdown-menu').click(function(e) {
+                e.stopPropagation();
+            });
+
+            $('#selectAll').click(function(event) {
+                if(this.checked) {
+                    $("input[name='clientes[]']").each(function() {
+                        this.checked = true;
+                    });
+                    $("#acoesMultiplas").collapse('show');
+                }else{
+                    $("input[name='clientes[]']").each(function() {
+                        this.checked = false;
+                    });
+                    $("#acoesMultiplas").collapse('hide')
+                }
+            });
+
+            $("input[name='clientes[]']").change(function() {
+                var n = $("input[name='clientes[]']:checked").length;
+                if(n>0)
+                    $("#acoesMultiplas").collapse('show');
+                else
+                    $("#acoesMultiplas").collapse('hide')
+            });
+
+        });
+    </script>
+
 @endsection
