@@ -40,6 +40,8 @@
             @if (Auth::check())
                 <ul class="nav navbar-nav">
                     <li><a href="/">Dashboard</a></li>
+                    <li><a href="/"><i class="glyphicon glyphicon-arrow-up"></i> Vendas</a></li>
+                    <li><a href="/"><i class="glyphicon glyphicon-arrow-down"></i> Compras</a></li>
                 </ul>
 
                 <ul class="nav navbar-nav">
@@ -55,9 +57,11 @@
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
+
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
+
                             <li><a href="/configuracoes">Configurações</a></li>
                             <li><a href="/auth/logout">Logout</a></li>
                         </ul>
