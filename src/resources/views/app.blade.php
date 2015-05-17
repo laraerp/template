@@ -40,7 +40,7 @@
             @if (Auth::check())
                 <ul class="nav navbar-nav">
                     <li><a href="/">Dashboard</a></li>
-                    <li><a href="/"><i class="glyphicon glyphicon-arrow-up"></i> Vendas</a></li>
+                    <li><a href="{{ route('venda.index') }}"><i class="glyphicon glyphicon-arrow-up"></i> Vendas</a></li>
                     <li><a href="/"><i class="glyphicon glyphicon-arrow-down"></i> Compras</a></li>
                 </ul>
 
