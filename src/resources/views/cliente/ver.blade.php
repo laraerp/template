@@ -13,6 +13,7 @@
                 <div class="col-md-12">
                     <div class="pull-right">
                         <input type="submit" class="btn btn-success" value="Salvar" />
+                        <a href="{{ route('venda.cadastrar', $cliente->id) }}" class="btn btn-warning"><i class="glyphicon glyphicon-plus"></i> Criar venda</a>
                         <a href="{{ route('cliente.index') }}" class="btn btn-primary">Voltar</a>
                     </div>
                 </div>

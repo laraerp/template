@@ -15,7 +15,7 @@
                         </div>
                     </div>
                     <div class="pull-right">
-                        <a href="{{ route('cliente.form') }}" class="btn btn-success">
+                        <a href="{{ route('venda.form') }}" class="btn btn-success">
                             <i class="glyphicon glyphicon-plus"></i> Criar nova
                         </a>
                     </div>
