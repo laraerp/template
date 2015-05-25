@@ -55,11 +55,32 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         Items
-                        <a class="btn btn-xs btn-success pull-right">
+
+                        <button type="button" class="btn btn-xs btn-success pull-right" data-toggle="modal" data-target="#addItem">
                             <i class="glyphicon glyphicon-plus"></i> Adicionar
-                        </a>
+                        </button>
                     </div>
                     <div class="panel-body">
+
+                        <!-- Modal AddItem -->
+                        <div class="modal fade" id="addItem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Adicionar item</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
 
                         <div class="table-responsive">
                             <table class="table table-condensed table-striped">
@@ -76,7 +97,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @forelse($venda->itens() as $item)
+                                @forelse($venda->itens as $item)
                                     <tr>
                                         <td>{{ $item->descricao }}</td>
                                         <td>{{ $item->quantidade }}</td>
