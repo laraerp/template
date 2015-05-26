@@ -56,30 +56,11 @@
                     <div class="panel-heading">
                         Items
 
-                        <button type="button" class="btn btn-xs btn-success pull-right" data-toggle="modal" data-target="#addItem">
+                        <a href="{{ route('vendaItem.form', $venda->id) }}" class="btn btn-xs btn-success pull-right">
                             <i class="glyphicon glyphicon-plus"></i> Adicionar
-                        </button>
+                        </a>
                     </div>
                     <div class="panel-body">
-
-                        <!-- Modal AddItem -->
-                        <div class="modal fade" id="addItem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="myModalLabel">Adicionar item</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        ...
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
 
                         <div class="table-responsive">
