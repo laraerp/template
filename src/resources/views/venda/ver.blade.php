@@ -40,7 +40,7 @@
                         Faturamento
                     </a>
                     <a href="#" class="list-group-item">
-                        <h4>R$ 0,00</h4>
+                        <h4>{{ $venda->getValorBruto() }}</h4>
                     </a>
                 </div>
 
@@ -68,12 +68,13 @@
                                 <thead>
                                 <tr>
                                     <th>Descrição</th>
+                                    <th>Cód</th>
                                     <th>Qtd.</th>
-                                    <th>Un.</th>
+                                    <th>Valor Un.</th>
                                     <th>Valor</th>
-                                    <th>Acrésc.</th>
-                                    <th>Desc.</th>
-                                    <th>Total</th>
+                                    <th>Desconto</th>
+                                    <th>Acréscimo</th>
+                                    <th>Liquido</th>
                                     <th width="30">&nbsp;</th>
                                 </tr>
                                 </thead>
@@ -81,24 +82,39 @@
                                 @forelse($venda->itens as $item)
                                     <tr>
                                         <td>{{ $item->descricao }}</td>
-                                        <td>{{ $item->quantidade }}</td>
-                                        <td>{{ $item->valor_unitario }}</td>
-                                        <td>{{ $item->valor_bruto }}</td>
-                                        <td>{{ $item->valor_acrescimo }}</td>
-                                        <td>{{ $item->valor_desconto }}</td>
-                                        <td>{{ $item->valor_liquido }}</td>
+                                        <td>{{ $item->codigo }}</td>
+                                        <td>{{ $item->getQuantidade() . ' '. $item->unidadeMedida->simbolo }}</td>
+                                        <td>{{ $item->getValorUnitario() }}</td>
+                                        <td>{{ $item->getValorBruto() }}</td>
+                                        <td>{{ $item->getValorAcrescimo() }}</td>
+                                        <td>{{ $item->getValorDesconto() }}</td>
+                                        <td>{{ $item->getValorLiquido() }}</td>
                                         <td>
-                                            <a href="#" class="btn btn-danger btn-xs">
+                                            <a href="{{ route('vendaItem.deletar', $item->id) }}" class="btn btn-danger btn-xs">
                                                 <i class="glyphicon glyphicon-remove"></i>
                                             </a>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="8"><i>Nenhum item adicionado</i></td>
+                                        <td colspan="9"><i>Nenhum item adicionado</i></td>
                                     </tr>
                                 @endforelse
                                 </tbody>
+
+                                <tfoot>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <th>&nbsp;</th>
+                                    <th>&nbsp;</th>
+                                    <th>&nbsp;</th>
+                                    <th>{{ $venda->getValorBruto() }}</th>
+                                    <th>{{ $venda->getValorDesconto() }}</th>
+                                    <th>{{ $venda->getValorAcrescimo() }}</th>
+                                    <th>{{ $venda->getValorLiquido() }}</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                                </tfoot>
                             </table>
                         </div>
 
