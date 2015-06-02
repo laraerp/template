@@ -75,7 +75,7 @@
                                         <?php $tags = $cliente->tags->toArray(); ?>
 
                                         <tr>
-                                            <th scope="row"><input type="checkbox" name="codigos[]" value="{{ $cliente->id }}" /></th>
+                                            <th scope="row"><input type="checkbox" name="codigos[]" value="{{ $cliente->getId() }}" /></th>
                                             <td>
                                                 @if(count($tags)>1)
                                                     <i class="glyphicon glyphicon-tags" data-toggle="tooltip" data-placement="top" title="<?php echo implode(', ', array_map(function($c){ return $c['nome'];}, $tags))?>"></i>
@@ -85,14 +85,14 @@
                                                     -
                                                 @endif
                                             </td>
-                                            <td>{{ Utils::highlighting($cliente->pessoa->getDocumento(), Input::get('like')) }}</td>
-                                            <td>{{ Utils::highlighting($cliente->pessoa->nome, Input::get('like')) }}</td>
-                                            <td>{{ Utils::highlighting($cliente->pessoa->razao_apelido, Input::get('like')) }}</td>
+                                            <td>{{ Utils::highlighting($cliente->getPessoa()->getDocumento(), Input::get('like')) }}</td>
+                                            <td>{{ Utils::highlighting($cliente->getPessoa()->getNome(), Input::get('like')) }}</td>
+                                            <td>{{ Utils::highlighting($cliente->getPessoa()->getRazaoApelido(), Input::get('like')) }}</td>
                                             <td>
-                                                <a href="{{ route('cliente.ver', $cliente->id) }}" class="btn btn-info btn-xs">
+                                                <a href="{{ route('cliente.ver', $cliente->getId()) }}" class="btn btn-info btn-xs">
                                                     <i class="glyphicon glyphicon-eye-open"></i>
                                                 </a>
-                                                <a href="{{ route('cliente.deletar', $cliente->id) }}" class="btn btn-danger btn-xs">
+                                                <a href="{{ route('cliente.deletar', $cliente->getId()) }}" class="btn btn-danger btn-xs">
                                                     <i class="glyphicon glyphicon-remove"></i>
                                                 </a>
                                             </td>
