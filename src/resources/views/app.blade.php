@@ -51,7 +51,6 @@
                             <li><a href="/cliente">Clientes</a></li>
                             <li><a href="/fornecedor">Fornecedores</a></li>
                             <li><a href="/produto">Produtos</a></li>
-                            <li><a href="/servico">Serviços</a></li>
                         </ul>
                     </li>
                 </ul>

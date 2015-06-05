@@ -15,7 +15,7 @@
                         </div>
                     </div>
                     <div class="pull-right">
-                        <a href="{{ route('cliente.form') }}" class="btn btn-success">
+                        <a href="{{ route('produto.form') }}" class="btn btn-success">
                             <i class="glyphicon glyphicon-plus"></i> Criar novo
                         </a>
                     </div>
@@ -62,23 +62,23 @@
                                 <tr>
                                     <th><input type="checkbox" id="selectAll" /></th>
                                     <th><a href="{{Order::url('codigo')}}">Código</a></th>
-                                    <th><a href="{{Order::url('nome')}}">Nome</a></th>
-                                    <th><a href="{{Order::url('valor')}}">Valor</a></th>
+                                    <th><a href="{{Order::url('descricao')}}">Descrição</a></th>
+                                    <th><a href="{{Order::url('unidade.nome')}}">Unidade</a></th>
                                     <th width="65">&nbsp;</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($produtos as $produto)
                                     <tr>
-                                        <th scope="row"><input type="checkbox" name="produtos[]" value="{{ $produto->id }}" /></th>
-                                        <td>{{ Utils::highlighting($produto->codigo, Input::get('like')) }}</td>
-                                        <td>{{ Utils::highlighting($produto->nome, Input::get('like')) }}</td>
-                                        <td>{{ $produto->getValor() }}</td>
+                                        <th scope="row"><input type="checkbox" name="produtos[]" value="{{ $produto->getId() }}" /></th>
+                                        <td>{{ Utils::highlighting($produto->getCodigo(), Input::get('like')) }}</td>
+                                        <td>{{ Utils::highlighting($produto->getDescricao(), Input::get('like')) }}</td>
+                                        <td>{{ $produto->getUnidade()->getNome() }}</td>
                                         <td>
-                                            <a href="{{ route('cliente.ver', $produto->id) }}" class="btn btn-info btn-xs">
+                                            <a href="{{ route('produto.ver', $produto->getId()) }}" class="btn btn-info btn-xs">
                                                 <i class="glyphicon glyphicon-eye-open"></i>
                                             </a>
-                                            <a href="{{ route('cliente.deletar', $produto->id) }}" class="btn btn-danger btn-xs">
+                                            <a href="{{ route('produto.deletar', $produto->getId()) }}" class="btn btn-danger btn-xs">
                                                 <i class="glyphicon glyphicon-remove"></i>
                                             </a>
                                         </td>

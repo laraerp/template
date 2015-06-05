@@ -8,7 +8,7 @@
 
         <form class="form-horizontal" method="POST" action="{{ route('cliente.salvar') }}">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <input type="hidden" name="id" value="{{ $cliente->id }}">
+            <input type="hidden" name="id" value="{{ $cliente->getId() }}">
 
             <div class="row">
                 <div class="col-md-12">
@@ -37,14 +37,14 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Insc. estadual:</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" name="inscricao_estadual" value="{{ $cliente->inscricao_estadual }}" placeholder="Inscrição estadual">
+                                        <input class="form-control" name="inscricao_estadual" value="{{ $cliente->getInscricaoEstadual() }}" placeholder="Inscrição estadual">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Insc. municipal:</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" name="inscricao_municipal" value="{{ $cliente->inscricao_municipal }}" placeholder="Inscrição municipal">
+                                        <input class="form-control" name="inscricao_municipal" value="{{ $cliente->getInscricaoMunicipal() }}" placeholder="Inscrição municipal">
                                     </div>
                                 </div>
 

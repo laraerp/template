@@ -40,7 +40,7 @@
                         Faturamento
                     </a>
                     <a href="#" class="list-group-item">
-                        <h4>{{ $venda->getValorBruto() }}</h4>
+                        <h4>{{ $venda->getValorTotal() }}</h4>
                     </a>
                 </div>
 
@@ -54,9 +54,9 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Items
+                        Itens
 
-                        <a href="{{ route('vendaItem.form', $venda->id) }}" class="btn btn-xs btn-success pull-right">
+                        <a href="{{ route('venda.adicionarItem', $venda->id) }}" class="btn btn-xs btn-success pull-right">
                             <i class="glyphicon glyphicon-plus"></i> Adicionar
                         </a>
                     </div>
@@ -67,30 +67,28 @@
                             <table class="table table-condensed table-striped">
                                 <thead>
                                 <tr>
-                                    <th>Descrição</th>
                                     <th>Cód</th>
+                                    <th>Descrição</th>
                                     <th>Qtd.</th>
                                     <th>Valor Un.</th>
-                                    <th>Valor</th>
                                     <th>Desconto</th>
                                     <th>Acréscimo</th>
-                                    <th>Liquido</th>
+                                    <th>Total</th>
                                     <th width="30">&nbsp;</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @forelse($venda->itens as $item)
+                                @forelse($venda->getVendasItens() as $item)
                                     <tr>
-                                        <td>{{ $item->descricao }}</td>
-                                        <td>{{ $item->codigo }}</td>
-                                        <td>{{ $item->getQuantidade() . ' '. $item->unidadeMedida->simbolo }}</td>
+                                        <td>{{ $item->getCodigo() }}</td>
+                                        <td>{{ $item->getDescricao() }}</td>
+                                        <td>{{ $item->getQuantidade() . ' '. $item->getUnidadeMedida()->getSimbolo() }}</td>
                                         <td>{{ $item->getValorUnitario() }}</td>
-                                        <td>{{ $item->getValorBruto() }}</td>
-                                        <td>{{ $item->getValorAcrescimo() }}</td>
                                         <td>{{ $item->getValorDesconto() }}</td>
-                                        <td>{{ $item->getValorLiquido() }}</td>
+                                        <td>{{ $item->getValorAcrescimo() }}</td>
+                                        <td>{{ $item->getValorTotal() }}</td>
                                         <td>
-                                            <a href="{{ route('vendaItem.deletar', $item->id) }}" class="btn btn-danger btn-xs">
+                                            <a href="{{ route('vendaItem.deletar', $item->getId()) }}" class="btn btn-danger btn-xs">
                                                 <i class="glyphicon glyphicon-remove"></i>
                                             </a>
                                         </td>
@@ -108,10 +106,9 @@
                                     <th>&nbsp;</th>
                                     <th>&nbsp;</th>
                                     <th>&nbsp;</th>
-                                    <th>{{ $venda->getValorBruto() }}</th>
-                                    <th>{{ $venda->getValorDesconto() }}</th>
-                                    <th>{{ $venda->getValorAcrescimo() }}</th>
-                                    <th>{{ $venda->getValorLiquido() }}</th>
+                                    <th>&nbsp;</th>
+                                    <th>&nbsp;</th>
+                                    <th>{{ $venda->getValorTotal() }}</th>
                                     <th>&nbsp;</th>
                                 </tr>
                                 </tfoot>
