@@ -37,7 +37,7 @@
 <div class="form-group">
     <label class="col-sm-2 control-label" id="labelNascimentoFundacao"><?php echo (isset($params['documento']) && strlen(Utils::unmask($params['documento'])) == 11) ? 'Nascimento:' : 'Fundação:' ?></label>
     <div class="col-sm-10">
-        <input class="form-control datepicker" name="nascimento_fundacao" id="nascimento_fundacao" value="<?php echo isset($params['nascimento_fundacao']) ? $params['nascimento_fundacao']->format('d/m/Y') : '' ?>" placeholder="dd/mm/aaaa">
+        <input class="form-control datepicker" name="nascimento_fundacao" id="nascimento_fundacao" value="<?php echo isset($params['nascimento_fundacao']) ? $params['nascimento_fundacao'] : '' ?>" placeholder="dd/mm/aaaa">
     </div>
 </div>
 

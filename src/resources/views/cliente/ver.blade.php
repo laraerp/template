@@ -6,8 +6,9 @@
     <div class="container-fluid">
 
 
-        <form class="form-horizontal" method="POST" action="{{ route('cliente.editar', $cliente->id) }}">
+        <form class="form-horizontal" method="POST" action="{{ route('cliente.salvar') }}">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="id" value="{{ $cliente->id }}">
 
             <div class="row">
                 <div class="col-md-12">
@@ -30,9 +31,9 @@
                         </div>
                         <div class="panel-body">
 
-                            @include('pessoa.formFields', ['params' => $cliente->pessoa])
+                            @include('pessoa.formFields', ['params' => $pessoa])
 
-                            <div id="dadosClienteEmpresa" class="<?php echo (strlen(Utils::unmask($cliente->pessoa->documento)) == 11) ? 'hide' : '' ?>">
+                            <div id="dadosClienteEmpresa" class="<?php echo (strlen($cliente->getPessoa()->getDocumento()) == 14) ? 'hide' : '' ?>">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Insc. estadual:</label>
                                     <div class="col-sm-10">
@@ -72,12 +73,16 @@
                     </div>
                     <div class="panel-body">
                         <div id="addEndereco" class="panel-collapse collapse" role="tabpanel">
-                            <form class="form-horizontal" method="POST" action="">
+
+                            <form class="form-horizontal" method="POST" action="{{ route('endereco.salvar') }}">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <input type="hidden" name="endereco[pessoa_id]" value="{{ $cliente->getPessoa()->getId() }}">
+
                                 @include('endereco.formFields', ['params' => Input::old()])
 
                                 <button type="submit" class="btn btn-primary">Salvar</button>
                             </form>
+
                             <hr />
                         </div>
 
@@ -94,7 +99,7 @@
                                     <tr>
                                         <td>{{ $endereco->getEndereco() }}</td>
                                         <td>
-                                            <a href="{{ route('cliente.deletar', $cliente->id) }}" class="btn btn-danger btn-xs">
+                                            <a href="{{ route('endereco.remover', $endereco->getId()) }}" class="btn btn-danger btn-xs">
                                                 <i class="glyphicon glyphicon-remove"></i>
                                             </a>
                                         </td>
@@ -118,8 +123,10 @@
                     <div class="panel-body">
 
                         <div id="addContato" class="panel-collapse collapse" role="tabpanel">
-                            <form class="form-horizontal" method="POST" action="">
+                            <form class="form-horizontal" method="POST" action="{{ route('contato.salvar') }}">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <input type="hidden" name="contato[pessoa_id]" value="{{ $cliente->getPessoa()->getId() }}">
+
                                 @include('contato.formFields', ['params' => Input::old()])
 
                                 <button type="submit" class="btn btn-primary">Salvar</button>
@@ -139,14 +146,14 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($cliente->pessoa->contatos as $contato)
+                                @foreach($cliente->getPessoa()->contatos as $contato)
                                     <tr>
                                         <td>{{ $contato->responsavel }}</td>
                                         <td>{{ $contato->getTelefone() }}</td>
                                         <td>{{ $contato->getCelular() }}</td>
                                         <td>{{ $contato->email }}</td>
                                         <td>
-                                            <a href="{{ route('cliente.deletar', $cliente->id) }}" class="btn btn-danger btn-xs">
+                                            <a href="{{ route('contato.remover', $contato->getId()) }}" class="btn btn-danger btn-xs">
                                                 <i class="glyphicon glyphicon-remove"></i>
                                             </a>
                                         </td>

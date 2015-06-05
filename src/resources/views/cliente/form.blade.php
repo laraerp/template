@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-    <form class="form-horizontal" role="form" method="post" action="{{route('cliente.cadastrar')}}">
+    <form class="form-horizontal" role="form" method="post" action="{{route('cliente.salvar')}}">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
         <div class="container-fluid">
