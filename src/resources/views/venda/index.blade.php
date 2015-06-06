@@ -72,7 +72,7 @@
                                 @foreach($vendas as $venda)
                                     <tr>
                                         <th scope="row"><input type="checkbox" name="vendas[]" value="{{ $venda->id }}" /></th>
-                                        <td>{{ $venda->id }}</td>
+                                        <td>{{ $venda->getId(true)}}</td>
                                         <td>{{ Utils::highlighting($venda->cliente->pessoa->nome, Input::get('like')) }}</td>
                                         <td>{{ $venda->valor_liquido }}</td>
                                         <td>

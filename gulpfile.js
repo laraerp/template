@@ -8,7 +8,8 @@ var concat = require("gulp-concat");
 gulp.task('less', function(){
     return gulp.src([
         './src/resources/assets/less/styles.less',
-        './node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css'
+        './node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css',
+        './node_modules/dropzone/dist/min/dropzone.min.css'
     ]).pipe(less())
         .pipe(minifyCss())
         .pipe(concat('styles.css'))
@@ -22,6 +23,7 @@ gulp.task('minify-js', function () {
         './node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
         './node_modules/bootstrap-datepicker/dist/locales/bootstrap-datepicker.pt-BR.min.js',
         './node_modules/jquery-mask-plugin/dist/jquery.mask.min.js',
+        './node_modules/dropzone/dist/min/dropzone.min.js',
         './src/resources/assets/js/*.js'
     ]).pipe(uglify())
         .pipe(concat('scripts.js'))

@@ -41,7 +41,20 @@
                 <ul class="nav navbar-nav">
                     <li><a href="/">Dashboard</a></li>
                     <li><a href="{{ route('venda.index') }}"><i class="glyphicon glyphicon-arrow-up"></i> Vendas</a></li>
-                    <li><a href="/"><i class="glyphicon glyphicon-arrow-down"></i> Compras</a></li>
+                    <li class="disabled"><a href="/"><i class="glyphicon glyphicon-arrow-down"></i> Compras</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Financeiro / Fiscal<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="disabled"><a href="#">Contas a pagar</a></li>
+                            <li class="disabled"><a href="#">Contas a pagar</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Notas fiscais</a></li>
+                            <li class="disabled"><a href="#">Sintegra</a></li>
+                        </ul>
+                    </li>
                 </ul>
 
                 <ul class="nav navbar-nav">
@@ -49,8 +62,8 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Cadastros <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="/cliente">Clientes</a></li>
-                            <li><a href="/fornecedor">Fornecedores</a></li>
                             <li><a href="/produto">Produtos</a></li>
+                            <li class="disabled"><a href="#">Fornecedores</a></li>
                         </ul>
                     </li>
                 </ul>

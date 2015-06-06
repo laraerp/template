@@ -39,7 +39,9 @@
 
         <div class="row">
             <div class="col-md-12">
-                <form action="{{ route('vendaItem.adicionar', $venda->getId()) }}" method="POST">
+                <form action="{{ route('vendaItem.adicionar') }}" method="POST">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="venda_id" value="{{ $venda->getId() }}">
 
                     <button type="submit" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-plus"></i> Adicionar selecionados</button>
 
@@ -47,6 +49,16 @@
                     <br />
 
                     <div class="table-responsive">
+
+                        <?php if(isset($errors)){
+                            $erros = [];
+
+                            foreach($errors->getBags() as $bag)
+                                $erros = array_merge($erros, array_keys($bag->toArray()));
+
+
+                        }?>
+
                         <table class="table table-condensed table-striped">
                             <thead>
                             <tr>
@@ -63,22 +75,35 @@
                             <tbody>
                             @forelse($produtos as $produto)
                                 <tr>
-                                    <th scope="row"><input type="checkbox" name="produtos[]" value="{{ $produto->getId() }}" /></th>
-                                    <td>{{ Utils::highlighting($produto->getCodigo(), Input::get('like')) }}</td>
-                                    <td>{{ Utils::highlighting($produto->getDescricao(), Input::get('like')) }}</td>
-                                    <td><input type="text" name="quantidades[{{ $produto->getId() }}]" class="form-control input-sm" value="1" /></td>
-                                    <td>
-                                        <select name="unidades_medida[{{ $produto->getId() }}]" class="form-control input-sm">
+                                    <th scope="row"><input type="checkbox" class="checkProduto" name="produtos[{{ $produto->getId() }}]" value="{{ $produto->getId() }}" {{ old('produtos.'.$produto->getId())>0 ? 'checked' : '' }} /></th>
 
+                                    <td>{{ Utils::highlighting($produto->getCodigo(), Input::get('like')) }}</td>
+
+                                    <td>{{ Utils::highlighting($produto->getDescricao(), Input::get('like')) }}</td>
+
+                                    <td class="form-group {{ in_array('quantidades.'.$produto->getId(), $erros) ? 'has-error' : ''  }}">
+                                        <input type="text" name="quantidades[{{ $produto->getId() }}]" class="form-control input-sm" value="{{ old('quantidades.'.$produto->getId()) }}" />
+                                    </td>
+
+                                    <td class="form-group">
+                                        <select name="unidades_medida[{{ $produto->getId() }}]" class="form-control input-sm">
                                             @foreach($produto->getUnidade()->getUnidadeMedidas() as $medida)
                                                 <option value="{{ $medida->getId() }}">{{ $medida->getSimbolo() }}</option>
                                             @endforeach
-
                                         </select>
                                     </td>
-                                    <td><input type="text" name="valores_unitario[{{ $produto->getId() }}]" class="form-control input-sm" value="" /></td>
-                                    <td><input type="text" name="descontos[{{ $produto->getId() }}]" class="form-control input-sm" /></td>
-                                    <td><input type="text" name="acrescimos[{{ $produto->getId() }}]" class="form-control input-sm" /></td>
+
+                                    <td class="form-group {{ in_array('valores_unitario.'.$produto->getId(), $erros) ? 'has-error' : ''  }}">
+                                        <input type="text" name="valores_unitario[{{ $produto->getId() }}]" class="form-control input-sm" value="{{ old('valores_unitario.'.$produto->getId()) }}" />
+                                    </td>
+
+                                    <td class="form-group {{ in_array('acrescimos.'.$produto->getId(), $erros) ? 'has-error' : ''  }}">
+                                        <input type="text" name="acrescimos[{{ $produto->getId() }}]" class="form-control input-sm" value="{{ old('acrescimos.'.$produto->getId()) }}" />
+                                    </td>
+
+                                    <td class="form-group {{ in_array('descontos.'.$produto->getId(), $erros) ? 'has-error' : ''  }}">
+                                        <input type="text" name="descontos[{{ $produto->getId() }}]" class="form-control input-sm" value="{{ old('descontos.'.$produto->getId()) }}" />
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>
@@ -98,11 +123,11 @@
 
             $('#selectAll').click(function(event) {
                 if(this.checked) {
-                    $("input[name='produtos[]']").each(function() {
+                    $(".checkProduto").each(function() {
                         this.checked = true;
                     });
                 }else{
-                    $("input[name='produtos[]']").each(function() {
+                    $(".checkProduto").each(function() {
                         this.checked = false;
                     });
                 }
