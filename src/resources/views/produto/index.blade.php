@@ -32,8 +32,8 @@
                         Lista de produtos
                     </div>
                     <div class="panel-body">
+                        <form method="POST">
 
-                        <div id="acoesMultiplas" class="panel-collapse collapse" role="tabpanel">
                             <button type="button" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i> Excluir selecionados</button>
 
                             <div class="btn-group">
@@ -42,52 +42,66 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-tags" role="menu">
                                     <li style="padding: 3px;">
-                                        <input type="text" class="form-control input-sm" placeholder="Digite para criar uma" />
+                                        <input type="hidden" name="tabela" value="produtos" />
+                                        <input type="text" name="novaTag" class="form-control input-sm" placeholder="Nova tag" />
                                     </li>
-                                    <li style="padding: 3px;"><input type="checkbox" /> Tag 01</li>
-                                    <li style="padding: 3px;"><input type="checkbox" /> Tag 02</li>
-                                    <li style="padding: 3px;"><input type="checkbox" /> Tag 03</li>
+                                    @foreach($tags as $tag)
+                                        <li style="padding: 3px; font-size: 12px;"><input type="checkbox" name="tags[]" value="{{$tag->nome}}" /> {{$tag->nome}}</li>
+                                    @endforeach
                                     <li class="divider"></li>
                                     <li class="text-center">
-                                        <button type="button" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-plus-sign"></i> Aplicar</button>
-                                        <button type="button" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus-sign"></i> Remover</button>
+                                        <button type="button" onClick="$(this).parents('form:first').attr('action', '<?php echo route('tag.adicionar'); ?>').submit()" class="btn btn-success btn-xs"><i class="glyphicon glyphicon-plus-sign"></i> Aplicar</button>
+                                        <button type="button" onClick="$(this).parents('form:first').attr('action', '<?php echo route('tag.remover'); ?>').submit()" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-minus-sign"></i> Remover</button>
                                     </li>
                                 </ul>
                             </div>
-                        </div>
 
-                        <div class="table-responsive">
-                            <table class="table table-condensed table-striped">
-                                <thead>
-                                <tr>
-                                    <th><input type="checkbox" id="selectAll" /></th>
-                                    <th><a href="{{Order::url('codigo')}}">Código</a></th>
-                                    <th><a href="{{Order::url('descricao')}}">Descrição</a></th>
-                                    <th><a href="{{Order::url('unidade.nome')}}">Unidade</a></th>
-                                    <th width="65">&nbsp;</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($produtos as $produto)
+                            <hr />
+
+                            <div class="table-responsive">
+                                <table class="table table-condensed table-striped">
+                                    <thead>
                                     <tr>
-                                        <th scope="row"><input type="checkbox" name="produtos[]" value="{{ $produto->getId() }}" /></th>
-                                        <td>{{ Utils::highlighting($produto->getCodigo(), Input::get('like')) }}</td>
-                                        <td>{{ Utils::highlighting($produto->getDescricao(), Input::get('like')) }}</td>
-                                        <td>{{ $produto->getUnidade()->getNome() }}</td>
-                                        <td>
-                                            <a href="{{ route('produto.ver', $produto->getId()) }}" class="btn btn-info btn-xs">
-                                                <i class="glyphicon glyphicon-eye-open"></i>
-                                            </a>
-                                            <a href="{{ route('produto.deletar', $produto->getId()) }}" class="btn btn-danger btn-xs">
-                                                <i class="glyphicon glyphicon-remove"></i>
-                                            </a>
-                                        </td>
+                                        <th><input type="checkbox" id="selectAll" /></th>
+                                        <th><a href="{{Order::url('codigo')}}">Código</a></th>
+                                        <th><a href="{{Order::url('descricao')}}">Descrição</a></th>
+                                        <th><a href="{{Order::url('unidade.nome')}}">Unidade</a></th>
+                                        <th width="65">&nbsp;</th>
                                     </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        <?php echo $produtos->appends(Input::query())->render() ?>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($produtos as $produto)
+                                        <?php $tags = $produto->tags->toArray(); ?>
+
+                                        <tr>
+                                            <th scope="row"><input type="checkbox" name="produtos[]" value="{{ $produto->getId() }}" /></th>
+                                            <td>
+                                                @if(count($tags)>1)
+                                                    <i class="glyphicon glyphicon-tags" data-toggle="tooltip" data-placement="top" title="<?php echo implode(', ', array_map(function($c){ return $c['nome'];}, $tags))?>"></i>
+                                                @elseif (count($tags) == 1)
+                                                    <i class="glyphicon glyphicon-tag" data-toggle="tooltip" data-placement="top" title="{{ $tags[0]['nome'] }}"></i>
+                                                @else
+                                                    -
+                                                @endif
+                                            </td>
+                                            <td>{{ Utils::highlighting($produto->getCodigo(), Input::get('like')) }}</td>
+                                            <td>{{ Utils::highlighting($produto->getDescricao(), Input::get('like')) }}</td>
+                                            <td>{{ $produto->getUnidade()->getNome() }}</td>
+                                            <td>
+                                                <a href="{{ route('produto.ver', $produto->getId()) }}" class="btn btn-info btn-xs">
+                                                    <i class="glyphicon glyphicon-eye-open"></i>
+                                                </a>
+                                                <a href="{{ route('produto.deletar', $produto->getId()) }}" class="btn btn-danger btn-xs">
+                                                    <i class="glyphicon glyphicon-remove"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <?php echo $produtos->appends(Input::query())->render() ?>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -112,14 +126,6 @@
                     });
                     $("#acoesMultiplas").collapse('hide')
                 }
-            });
-
-            $("input[name='produtos[]']").change(function() {
-                var n = $("input[name='produtos[]']:checked").length;
-                if(n>0)
-                    $("#acoesMultiplas").collapse('show');
-                else
-                    $("#acoesMultiplas").collapse('hide')
             });
 
         });
