@@ -63,6 +63,7 @@
                                     <thead>
                                     <tr>
                                         <th><input type="checkbox" id="selectAll" /></th>
+                                        <th>&nbsp;</th>
                                         <th><a href="{{Order::url('codigo')}}">Código</a></th>
                                         <th><a href="{{Order::url('descricao')}}">Descrição</a></th>
                                         <th><a href="{{Order::url('unidade.nome')}}">Unidade</a></th>
@@ -74,7 +75,7 @@
                                         <?php $tags = $produto->tags->toArray(); ?>
 
                                         <tr>
-                                            <th scope="row"><input type="checkbox" name="produtos[]" value="{{ $produto->getId() }}" /></th>
+                                            <th scope="row"><input type="checkbox" name="codigos[]" value="{{ $produto->getId() }}" /></th>
                                             <td>
                                                 @if(count($tags)>1)
                                                     <i class="glyphicon glyphicon-tags" data-toggle="tooltip" data-placement="top" title="<?php echo implode(', ', array_map(function($c){ return $c['nome'];}, $tags))?>"></i>
@@ -116,15 +117,13 @@
 
             $('#selectAll').click(function(event) {
                 if(this.checked) {
-                    $("input[name='produtos[]']").each(function() {
+                    $("input[name='codigos[]']").each(function() {
                         this.checked = true;
                     });
-                    $("#acoesMultiplas").collapse('show');
                 }else{
-                    $("input[name='produtos[]']").each(function() {
+                    $("input[name='codigos[]']").each(function() {
                         this.checked = false;
                     });
-                    $("#acoesMultiplas").collapse('hide')
                 }
             });
 
