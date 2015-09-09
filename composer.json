@@ -1,15 +1,15 @@
 {
   "name": "laraerp/template",
-  "description": "Laraerp Default Template",
+  "description": "Template padrão do Laraerp",
   "keywords": ["laraerp", "template"],
   "license": "MIT",
   "require": {
-    "jansenfelipe/utils": "1.0.*",
-    "laraerp/ordination": "1.0.*"
+    "php": ">=5.6.0",
+    "laravel/framework": "5.1.*"
   },
   "autoload": {
     "psr-4": {
-      "Laraerp\\": "src/Laraerp"
+      "Laraerp\\": "src"
     }
   },
   "config": {
